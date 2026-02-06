@@ -1,0 +1,60 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Skeleton Check
+      id: skeleton-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Skeleton Check
+        setup-command: ''
+        command: mvn test -Dtest=Interface_Tests#testSkeletonClass
+        timeout: 10
+        max-score: 25
+    - name: Monster Check
+      id: monster-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Monster Check
+        setup-command: ''
+        command: mvn test -Dtest=Interface_Tests#testMonsterClass
+        timeout: 10
+        max-score: 25
+    - name: Roman Numeral Check
+      id: roman-numeral-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Roman Numeral Check
+        setup-command: ''
+        command: mvn test -Dtest=Interface_Tests#testRomanNumeralClass
+        timeout: 10
+        max-score: 25
+    - name: Word Check
+      id: word-check
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Word Check
+        setup-command: ''
+        command: mvn test -Dtest=Interface_Tests#testWordClass
+        timeout: 10
+        max-score: 25
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        SKELETON-CHECK_RESULTS: "${{steps.skeleton-check.outputs.result}}"
+        MONSTER-CHECK_RESULTS: "${{steps.monster-check.outputs.result}}"
+        ROMAN-NUMERAL-CHECK_RESULTS: "${{steps.roman-numeral-check.outputs.result}}"
+        WORD-CHECK_RESULTS: "${{steps.word-check.outputs.result}}"
+      with:
+        runners: skeleton-check,monster-check,roman-numeral-check,word-check
