@@ -2,7 +2,7 @@
 //www.apluscompsci.com
 //Name -
 
-import static java.lang.System.*;
+
 
 public class Skeleton implements Monster_i {
 	// add instance variables
@@ -28,19 +28,19 @@ public class Skeleton implements Monster_i {
 		return name;
 	}
 
-	public boolean isBigger(Monster other)
+	public boolean isBigger(Skeleton other)
 	{
-		return other.compareTo(this) == 0 ? false : other.compareTo(this) > 0;
+		return this.getHowBig() - other.getHowBig() > 0;
 	}
 
-	public boolean isSmaller(Monster other)
+	public boolean isSmaller(Skeleton other)
 	{
-		return other.compareTo(this) == 0 ? false : other.compareTo(this) < 0;
+		return this.getHowBig() - other.getHowBig() < 0;
 	}
 
-	public boolean namesTheSame(Monster other)
+	public boolean namesTheSame(Skeleton other)
 	{
-		return other.getName().equals(name);
+		return other.getName().equals(this.name);
 	}
 
 	// add a toString

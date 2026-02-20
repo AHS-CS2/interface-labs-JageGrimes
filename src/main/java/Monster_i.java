@@ -9,9 +9,9 @@ public interface Monster_i {
 
 	public String getName();
 
-	public boolean isBigger(Monster other);
+	public boolean isBigger(Skeleton other);
 
-	public boolean isSmaller(Monster other);
+	public boolean isSmaller(Skeleton other);
 
-	public boolean namesTheSame(Monster other);
+	public boolean namesTheSame(Skeleton other);
 }
