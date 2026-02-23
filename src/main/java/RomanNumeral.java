@@ -17,6 +17,7 @@ public class RomanNumeral implements Comparable<RomanNumeral>
 												  "L","XL","X","IX","V","IV","I"};
 
 
+	
 	public RomanNumeral()
 	{
 		roman = "";
@@ -25,50 +26,47 @@ public class RomanNumeral implements Comparable<RomanNumeral>
 	public RomanNumeral(String str)
 	{
 		this();
-		isNumberSent = false;
-		roman += str;
-		for(int i = 0; i < LETTERS.length; i++)
-		{
-			while(str.length() > 1)
-			{
-				if(str.indexOf(LETTERS[i]) == 0)
-				{
-					number += NUMBERS[i];
-					str = str.substring(LETTERS[i].length());
-				}
-			}
-		}
+		setRoman(str);
 	}
-
 	public RomanNumeral(Integer orig)
 	{
 		this();
-		number += orig;
-
-		isNumberSent = true;
-
-		int origional = orig;
-
-		for(int i = 0; i < NUMBERS.length; i++)
-		{
-			while(origional >= NUMBERS[i])
-			{
-				roman += LETTERS[i];
-				origional -= NUMBERS[i];
-			}
-		}
+		setNumber(orig);
 	}
 
 	//write a set number method
 	public void setNumber(Integer num)
 	{
-		number = num;
+		roman = "";
+		number = 0;
+		number += num;
+
+		isNumberSent = true;
+
+		for(int i = 0; i < NUMBERS.length; i++)
+		{
+			while(num >= NUMBERS[i])
+			{
+				roman += LETTERS[i];
+				num -= NUMBERS[i];
+			}
+		}
 	}
-	
 	//write a set roman method
 	public void setRoman(String str)
 	{
-		roman = str;
+		isNumberSent = false;
+		roman = "";
+		number = 0;
+		roman += str;
+		for(int i = 0; i < LETTERS.length; i++)
+		{
+			while(str.indexOf(LETTERS[i]) == 0)
+			{
+				number += NUMBERS[i];
+				str = str.substring(LETTERS[i].length());
+			}
+		}
 	}
 
 
